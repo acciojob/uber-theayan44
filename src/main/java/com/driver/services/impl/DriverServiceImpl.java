@@ -33,10 +33,10 @@ public class DriverServiceImpl implements DriverService {
 		cab.setPerKmRate(10);
 		cab.setAvailable(true);
 		cab.setDriver(savedDriver);
-		Cab savedCab = cabRepository3.save(cab);
+//		Cab savedCab = cabRepository3.save(cab);
 
 		// Update the driver entity
-		savedDriver.setCab(savedCab);
+		savedDriver.setCab(cab);
 		driverRepository3.save(savedDriver);
 	}
 
