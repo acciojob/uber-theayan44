@@ -49,7 +49,6 @@ public class CustomerServiceImpl implements CustomerService {
 		// Check any cab-driver available or not
 		List<Driver> driverList = driverRepository2.findAll();
 		Driver driver = null;
-		int driverId = Integer.MAX_VALUE;
 		for(Driver currDriver : driverList){
 			Cab currCab = currDriver.getCab();
 			if(currCab.isAvailable()){
@@ -79,13 +78,13 @@ public class CustomerServiceImpl implements CustomerService {
 		cab.setAvailable(false);
 
 		// Save the trip in Database
-		TripBooking bookedTrip = tripBookingRepository2.save(tripToBeBooked);
+		tripBookingRepository2.save(tripToBeBooked);
 
 		// Now check for the Driver Entity
 		List<TripBooking> tripBookingListOfDriver = driver.getTripBookingList();
 		if(tripBookingListOfDriver == null)
 			tripBookingListOfDriver = new ArrayList<>();
-		tripBookingListOfDriver.add(bookedTrip);
+		tripBookingListOfDriver.add(tripToBeBooked);
 		driver.setTripBookingList(tripBookingListOfDriver);
 		driverRepository2.save(driver);
 
@@ -93,11 +92,11 @@ public class CustomerServiceImpl implements CustomerService {
 		List<TripBooking> tripBookingListOfCustomer = customer.getTripBookingList();
 		if(tripBookingListOfCustomer == null)
 			tripBookingListOfCustomer = new ArrayList<>();
-		tripBookingListOfCustomer.add(bookedTrip);
+		tripBookingListOfCustomer.add(tripToBeBooked);
 		customer.setTripBookingList(tripBookingListOfCustomer);
 		customerRepository2.save(customer);
 
-		return bookedTrip;
+		return tripToBeBooked;
 
 	}
 
