@@ -49,7 +49,7 @@ public class CustomerServiceImpl implements CustomerService {
 		// Check customer exist or not
 		Optional<Customer> optionalCustomer = customerRepository2.findById(customerId);
 		if(!optionalCustomer.isPresent())
-			return null;
+			return new TripBooking();
 
 		// Check any cab-driver available or not
 		List<Driver> driverList = driverRepository2.findAll();
